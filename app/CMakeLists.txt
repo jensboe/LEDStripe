@@ -1,22 +1,23 @@
 cmake_minimum_required(VERSION 3.22)
 
 project(app)
-add_library(app INTERFACE)
+add_executable(app)
 
 # Enable CMake support for ASM and C languages
-enable_language(C ASM)
+enable_language(CXX C ASM)
 
-target_compile_definitions(app INTERFACE 
+target_compile_definitions(app PRIVATE 
 	USE_HAL_DRIVER 
 	STM32F446xx
     $<$<CONFIG:Debug>:DEBUG>
 )
 
-target_include_directories(app INTERFACE
+target_include_directories(app PRIVATE
     inc
+    cfg
 )
 
-target_sources(app INTERFACE
+target_sources(app PUBLIC
     src/main.cpp
     src/stm32f4xx_it.c
     src/stm32f4xx_hal_msp.c
@@ -29,7 +30,11 @@ target_sources(app INTERFACE
 target_link_directories(app INTERFACE
 )
 
-target_link_libraries(app INTERFACE
+target_link_libraries(app PRIVATE
+    hal
+    stm32f4xx_hal_driver
+    cmsis_5
+    cmsis_device_f4
 )
 
 # Validate that app code is compatible with C standard
