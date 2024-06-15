@@ -17,7 +17,7 @@ target_include_directories(app INTERFACE
 )
 
 target_sources(app INTERFACE
-    src/main.c
+    src/main.cpp
     src/stm32f4xx_it.c
     src/stm32f4xx_hal_msp.c
     src/system_stm32f4xx.c
