@@ -16,7 +16,7 @@ target_include_directories(stm32cubemx INTERFACE
     ../../Core/Inc
     ../../ext/stm32f4xx_hal_driver/Inc
     ../../ext/stm32f4xx_hal_driver/Inc/Legacy
-    ../../Drivers/CMSIS/Device/ST/STM32F4xx/Include
+    ../../ext/cmsis_device_f4/Include
     ../../Drivers/CMSIS/Include
 )
 
@@ -46,7 +46,7 @@ target_sources(stm32cubemx INTERFACE
     ../../Core/Src/system_stm32f4xx.c
     ../../Core/Src/sysmem.c
     ../../Core/Src/syscalls.c
-    ../../startup_stm32f446xx.s
+    ../../ext/cmsis_device_f4/Source/Templates/gcc/startup_stm32f446xx.s
 )
 
 target_link_directories(stm32cubemx INTERFACE
