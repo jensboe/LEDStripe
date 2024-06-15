@@ -37,7 +37,7 @@ message("Build type: " ${CMAKE_BUILD_TYPE})
 # Create an executable object type
 add_executable(${CMAKE_PROJECT_NAME})
 
-add_subdirectory(core)
+add_subdirectory(app)
 
 # Link directories setup
 target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
@@ -63,7 +63,7 @@ add_subdirectory(ext)
 
 # Add linked libraries
 target_link_libraries(${CMAKE_PROJECT_NAME}
-    stm32cubemx
+    app
     stm32f4xx_hal_driver
     cmsis_5
     cmsis_device_f4

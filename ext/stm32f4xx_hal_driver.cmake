@@ -12,7 +12,7 @@ target_compile_definitions(stm32f4xx_hal_driver PUBLIC
 target_include_directories(stm32f4xx_hal_driver PUBLIC
     stm32f4xx_hal_driver/Inc
     stm32f4xx_hal_driver/Inc/Legacy
-    ../core/inc/hal
+    ../app/inc/hal
 )
 
 target_sources(stm32f4xx_hal_driver PRIVATE
