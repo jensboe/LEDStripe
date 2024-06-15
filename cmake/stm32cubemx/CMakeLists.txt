@@ -16,8 +16,6 @@ target_include_directories(stm32cubemx INTERFACE
     ../../Core/Inc
     ../../ext/stm32f4xx_hal_driver/Inc
     ../../ext/stm32f4xx_hal_driver/Inc/Legacy
-    ../../ext/cmsis_device_f4/Include
-    ../../ext/cmsis_5/CMSIS/Core/Include
 )
 
 target_sources(stm32cubemx INTERFACE
