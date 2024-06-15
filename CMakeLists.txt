@@ -65,7 +65,7 @@ add_subdirectory(ext)
 # Add linked libraries
 target_link_libraries(${CMAKE_PROJECT_NAME}
     stm32cubemx
-    
+    stm32f4xx_hal_driver
     cmsis_5
     cmsis_device_f4
 )

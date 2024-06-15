@@ -22,25 +22,6 @@ target_sources(stm32cubemx INTERFACE
     ../../Core/Src/main.c
     ../../Core/Src/stm32f4xx_it.c
     ../../Core/Src/stm32f4xx_hal_msp.c
-    ../../ext/stm32f4xx_hal_driver/Src/stm32f4xx_hal_tim.c
-    ../../ext/stm32f4xx_hal_driver/Src/stm32f4xx_hal_tim_ex.c
-    ../../ext/stm32f4xx_hal_driver/Src/stm32f4xx_hal_uart.c
-    ../../ext/stm32f4xx_hal_driver/Src/stm32f4xx_hal_rcc.c
-    ../../ext/stm32f4xx_hal_driver/Src/stm32f4xx_hal_rcc_ex.c
-    ../../ext/stm32f4xx_hal_driver/Src/stm32f4xx_hal_flash.c
-    ../../ext/stm32f4xx_hal_driver/Src/stm32f4xx_hal_flash_ex.c
-    ../../ext/stm32f4xx_hal_driver/Src/stm32f4xx_hal_flash_ramfunc.c
-    ../../ext/stm32f4xx_hal_driver/Src/stm32f4xx_hal_gpio.c
-    ../../ext/stm32f4xx_hal_driver/Src/stm32f4xx_hal_dma_ex.c
-    ../../ext/stm32f4xx_hal_driver/Src/stm32f4xx_hal_dma.c
-    ../../ext/stm32f4xx_hal_driver/Src/stm32f4xx_hal_pwr.c
-    ../../ext/stm32f4xx_hal_driver/Src/stm32f4xx_hal_pwr_ex.c
-    ../../ext/stm32f4xx_hal_driver/Src/stm32f4xx_hal_cortex.c
-    ../../ext/stm32f4xx_hal_driver/Src/stm32f4xx_hal.c
-    ../../ext/stm32f4xx_hal_driver/Src/stm32f4xx_hal_exti.c
-    ../../ext/stm32f4xx_hal_driver/Src/stm32f4xx_hal_pcd.c
-    ../../ext/stm32f4xx_hal_driver/Src/stm32f4xx_hal_pcd_ex.c
-    ../../ext/stm32f4xx_hal_driver/Src/stm32f4xx_ll_usb.c
     ../../Core/Src/system_stm32f4xx.c
     ../../Core/Src/sysmem.c
     ../../Core/Src/syscalls.c
