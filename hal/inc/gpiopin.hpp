@@ -44,7 +44,7 @@ public:
     }
     static void reset()
     {
-        setbit(&getGpioRegister()->BSRR, getPinPos() << 16);
+        setbit(&getGpioRegister()->BSRR, getPinPos() + 16);
     }
     static void toggle()
     {
