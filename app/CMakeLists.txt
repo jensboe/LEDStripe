@@ -27,12 +27,9 @@ target_sources(app PUBLIC
     ../ext/cmsis_device_f4/Source/Templates/gcc/startup_stm32f446xx.s
 )
 
-target_link_directories(app INTERFACE
-)
-
-target_link_libraries(app PRIVATE
-    hal
+target_link_libraries(app PUBLIC
     stm32f4xx_hal_driver
+    hal
     cmsis_5
     cmsis_device_f4
 )
