@@ -15,6 +15,7 @@ struct gpiopin
 public:
     static void init()
     {
+        enablePort();
         setMode();
     }
 
@@ -23,36 +24,36 @@ public:
         switch (MODE)
         {
         case mode::Input:
-            set2bit(&getGPIO()->MODER, 0, getPinPos() * 2);
+            set2bit(&getGpioRegister()->MODER, 0, getPinPos() * 2);
             break;
         case mode::PushPull:
-            set2bit(&getGPIO()->MODER, 1, getPinPos() * 2);
+            set2bit(&getGpioRegister()->MODER, 1, getPinPos() * 2);
             break;
         case mode::OpenDrain:
-            set2bit(&getGPIO()->MODER, 1, getPinPos() * 2);
-            setbit(&getGPIO()->OTYPER, getPinPos());
+            set2bit(&getGpioRegister()->MODER, 1, getPinPos() * 2);
+            setbit(&getGpioRegister()->OTYPER, getPinPos());
             break;
         case mode::Analog:
-            set2bit(&getGPIO()->MODER, 3, getPinPos() * 2);
+            set2bit(&getGpioRegister()->MODER, 3, getPinPos() * 2);
             break;
         }
     }
     static void set()
     {
-        setbit(&getGPIO()->BSRR, getPinPos());
+        setbit(&getGpioRegister()->BSRR, getPinPos());
     }
     static void reset()
     {
-        setbit(&getGPIO()->BSRR, getPinPos() << 16);
+        setbit(&getGpioRegister()->BSRR, getPinPos() << 16);
     }
     static void toggle()
     {
-        uint32_t odr = getGPIO()->ODR;
-        getGPIO()->BSRR = ((odr & (1 << getPinPos())) << 16) | (~odr & (1 << getPinPos()));
+        uint32_t odr = getGpioRegister()->ODR;
+        getGpioRegister()->BSRR = ((odr & (1 << getPinPos())) << 16) | (~odr & (1 << getPinPos()));
     }
     static bool get()
     {
-        return ((getGPIO()->IDR) >> getPinPos()) & 0x1;
+        return ((getGpioRegister()->IDR) >> getPinPos()) & 0x1;
     }
 
 private:
@@ -71,6 +72,39 @@ private:
         *reg = temp;
     }
 
+    static constexpr void enablePort()
+    {
+        switch (getGpio())
+        {
+        case gpio::A:
+            setbit(&RCC->AHB1ENR, RCC_AHB1ENR_GPIOAEN_Pos);
+            break;
+        case gpio::B:
+            setbit(&RCC->AHB1ENR, RCC_AHB1ENR_GPIOBEN_Pos);
+            break;
+        case gpio::C:
+            setbit(&RCC->AHB1ENR, RCC_AHB1ENR_GPIOCEN_Pos);
+            break;
+        case gpio::D:
+            setbit(&RCC->AHB1ENR, RCC_AHB1ENR_GPIODEN_Pos);
+            break;
+        case gpio::E:
+            setbit(&RCC->AHB1ENR, RCC_AHB1ENR_GPIOEEN_Pos);
+            break;
+        case gpio::F:
+            setbit(&RCC->AHB1ENR, RCC_AHB1ENR_GPIOFEN_Pos);
+            break;
+        case gpio::G:
+            setbit(&RCC->AHB1ENR, RCC_AHB1ENR_GPIOGEN_Pos);
+            break;
+        case gpio::H:
+            setbit(&RCC->AHB1ENR, RCC_AHB1ENR_GPIOHEN_Pos);
+            break;
+        default:
+            break;
+        }
+        __NOP();
+    }
     static constexpr int32_t getPinPos()
     {
         switch (PIN)
@@ -223,7 +257,40 @@ private:
         }
     }
 
-    static constexpr GPIO_TypeDef *getGPIO()
+    static constexpr GPIO_TypeDef *getGpioRegister()
+    {
+        switch (getGpio())
+        {
+        case gpio::A:
+            return GPIOA;
+            break;
+        case gpio::B:
+            return GPIOB;
+            break;
+        case gpio::C:
+            return GPIOC;
+            break;
+        case gpio::D:
+            return GPIOD;
+            break;
+        case gpio::E:
+            return GPIOE;
+            break;
+        case gpio::F:
+            return GPIOF;
+            break;
+        case gpio::G:
+            return GPIOG;
+            break;
+        case gpio::H:
+            return GPIOH;
+            break;
+        default:
+            return nullptr;
+            break;
+        }
+    }
+    static constexpr gpio getGpio()
     {
         switch (PIN)
         {
@@ -243,7 +310,7 @@ private:
         case pin::PA13:
         case pin::PA14:
         case pin::PA15:
-            return GPIOA;
+            return gpio::A;
             break;
         case pin::PB0:
         case pin::PB1:
@@ -261,7 +328,7 @@ private:
         case pin::PB13:
         case pin::PB14:
         case pin::PB15:
-            return GPIOB;
+            return gpio::B;
             break;
         case pin::PC0:
         case pin::PC1:
@@ -279,7 +346,7 @@ private:
         case pin::PC13:
         case pin::PC14:
         case pin::PC15:
-            return GPIOC;
+            return gpio::C;
             break;
         case pin::PD0:
         case pin::PD1:
@@ -297,7 +364,7 @@ private:
         case pin::PD13:
         case pin::PD14:
         case pin::PD15:
-            return GPIOD;
+            return gpio::D;
             break;
 
         case pin::PE1:
@@ -315,7 +382,7 @@ private:
         case pin::PE13:
         case pin::PE14:
         case pin::PE15:
-            return GPIOE;
+            return gpio::E;
             break;
         case pin::PF0:
         case pin::PF1:
@@ -333,7 +400,7 @@ private:
         case pin::PF13:
         case pin::PF14:
         case pin::PF15:
-            return GPIOF;
+            return gpio::F;
             break;
         case pin::PG0:
         case pin::PG1:
@@ -351,15 +418,11 @@ private:
         case pin::PG13:
         case pin::PG14:
         case pin::PG15:
-            return GPIOG;
+            return gpio::G;
             break;
         case pin::PH0:
         case pin::PH1:
-            return GPIOH;
-            break;
-
-        default:
-            return NULL;
+            return gpio::H;
             break;
         }
     }

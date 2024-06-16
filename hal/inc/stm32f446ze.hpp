@@ -1,5 +1,17 @@
 #pragma once
 
+enum class gpio
+{
+    A,
+    B,
+    C,
+    D,
+    E,
+    F,
+    G,
+    H,
+};
+
 enum class pin
 {
     PE2,
